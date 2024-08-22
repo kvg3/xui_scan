@@ -1,5 +1,5 @@
 # xui_scan
 xui弱密码扫描脚本
 
-fofa或微步搜索语法
+fofa或微步搜索语法：
 country="JP" && port="54321" && title=="登录"
