@@ -7,3 +7,4 @@ fofa或微步搜索语法：
 
 file_encoding.py查询`ip_port.csv`编码方式 <br />
 change_encoding.py更改`ip_port.csv`编码方式 <br />
+xui_scan.py扫描脚本
