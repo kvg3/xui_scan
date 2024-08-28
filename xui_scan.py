@@ -12,27 +12,25 @@ import concurrent.futures
 #配置日志记录，设置日志级别为INFO
 logging.basicConfig(level=logging.INFO)
 
-#从ip_port.csv文件中获取 IP 和端口信息
+#从ip_port.csv文件中获取 IP 和端口信息，第一列为ip，第二列为端口
 def read_csv_file():
     ip_port_list = []
-    #csv编码方式 encoding='utf-8'    encoding='gbk'
-    with open('ip_port.csv', 'r', encoding='utf-8') as csv_file:
-        reader = csv.reader(csv_file)
-        for row in reader:
-            if len(row) > 0:
-                domain_port = row[0].strip()
-                try:
-                    if ":" in domain_port:
-                        domain, port = domain_port.split(":")
-                        if domain and port:
-                            if domain_port.startswith("http://"):
-                                domain_port = domain_port[7:]
-                            elif domain_port.startswith("https://"):
-                                domain_port = domain_port[8:]
-                            ip_port_list.append((domain, port))  # 以元组形式返回
-                except Exception as e:
-                    logging.error(f"Error processing row: {row}. Error: {e}")
+    try:
+        #csv编码方式 encoding='utf-8'    encoding='gbk'
+        with open('ip_port.csv', 'r', encoding='utf-8') as csv_file:
+            reader = csv.reader(csv_file)
+            #跳过第一行字段名
+            next(reader)
+            #遍历具体ip和端口数据
+            for row in reader:  
+                if len(row) > 1:
+                    ip = row[0].strip()
+                    port = row[1].strip()
+                    ip_port_list.append((ip, port))  # 以元组形式返回
+    except Exception as e:
+            logging.error(f"Error processing file {file_name}. Error: {e}")
     return ip_port_list
+
 
 # 从 username.txt 文件中获取用户名信息
 def read_username_file():
